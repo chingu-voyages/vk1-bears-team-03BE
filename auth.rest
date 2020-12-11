@@ -1,0 +1,69 @@
+//<------------ASSETS------------->//
+
+//Get Assets
+GET http://localhost:5000/api/v1/assets
+
+//Add Asset
+POST http://localhost:5000/api/v1/assets HTTP/1.1
+content-type: application/json
+
+{
+    "asset_name": "Laptop",
+    "asset_category": "Electronics",
+    "asset_status": "Available",
+    "asset_serial": "ABCD1234",
+    "asset_purchasecost": "2500",
+    "asset_warrantydate": "July 1 2020"
+}
+
+
+//Delete Asset
+DELETE http://localhost:5000/api/v1/assets/5fd1cd2dd1dc877e649ce947
+
+
+//Update Asset
+PATCH http://localhost:5000/api/v1/assets/5fd1cd2dd1dc877e649ce947
+content-type: application/json
+
+{
+    "asset_name": "Computer",
+    "asset_category": "Electronics"
+
+}
+
+
+
+//<------- USERS-------->//
+
+//Get Users
+GET http://localhost:5000/api/v1/users
+
+//Add User
+POST http://localhost:5000/api/v1/users HTTP/1.1
+content-type: application/json
+
+{
+    "first_name": "John",
+    "last_name": "Doe",
+    "username": "johndoe",
+    "password": "abcd1234",
+    "email": "johndoe@example.com",
+    "user_role": "user",
+    "assets_borrowed": []
+
+}
+
+
+//Delete User
+DELETE http://localhost:5000/api/v1/users/5fd1de8f7abd6e0a2853efc6
+
+
+//Update User
+PATCH http://localhost:5000/api/v1/users/5fd1de8f7abd6e0a2853efc6
+content-type: application/json
+
+{
+    "first_name": "Jimmy",
+    "username": "jimmydoe@example.com"
+
+}
