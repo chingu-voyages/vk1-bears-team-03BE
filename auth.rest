@@ -57,11 +57,11 @@ content-type: application/json
 
 ###
 //Delete User
-DELETE http://localhost:5000/api/v1/users/5fd1de8f7abd6e0a2853efc6
+DELETE http://localhost:5000/api/v1/users/5fe1facb69c1ef3bbc38d3fd
 
 ###
 //Update User
-PATCH http://localhost:5000/api/v1/users/5fd1de8f7abd6e0a2853efc6
+PATCH http://localhost:5000/api/v1/users/5fe1facb69c1ef3bbc38d3fd
 content-type: application/json
 
 {

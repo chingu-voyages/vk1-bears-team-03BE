@@ -1,19 +1,20 @@
-const { userModel } = require("./User.model");
+import * as userService from "./users.service";
+import httpStatus from "../../utils/httpStatus";
 
 // @desc     Get all users
 // @route    GET /api/v1/users
 // @access   Public
 exports.getUsers = async (req, res, next) => {
   try {
-    const users = await userModel.find();
+    const users = await userService.Find({});
 
-    return res.status(200).json({
+    return res.status(httpStatus.OK).json({
       success: true,
       user_count: users.length,
       data: users,
     });
   } catch (err) {
-    return res.status(500).json({
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
       success: false,
       error: "Server Error",
     });
@@ -36,9 +37,9 @@ exports.addUser = async (req, res, next) => {
       assets_borrowed,
     } = req.body;
 
-    const user = await userModel.create(req.body);
+    const user = await userService.Create(req.body);
 
-    return res.status(201).json({
+    return res.status(httpStatus.CREATED).json({
       success: true,
       data: user,
     });
@@ -46,12 +47,12 @@ exports.addUser = async (req, res, next) => {
     if (err.name === "ValidationError") {
       const messages = Object.values(err.errors).map((val) => val.message);
 
-      return res.status(400).json({
+      return res.status(httpStatus.BAD_REQUEST).json({
         success: false,
         error: messages,
       });
     } else {
-      return res.status(500).json({
+      return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
         success: false,
         error: "Server Error",
       });
@@ -65,22 +66,22 @@ exports.addUser = async (req, res, next) => {
 
 exports.deleteUser = async (req, res, next) => {
   try {
-    const user = await userModel.findById(req.params.id);
+    const user = await userService.FindOne({ _id: req.params.id });
 
     if (!user) {
-      return res.status(404).json({
+      return res.status(httpStatus.NOT_FOUND).json({
         success: false,
         error: "No user found",
       });
     }
 
-    await user.remove();
-    return res.status(200).json({
+    await userService.DeleteOne({ _id: req.params.id });
+    return res.status(httpStatus.OK).json({
       success: true,
       data: {},
     });
   } catch (error) {
-    return res.status(500).json({
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
       success: false,
       error: "Server Error",
     });
@@ -93,7 +94,7 @@ exports.deleteUser = async (req, res, next) => {
 
 exports.updateUser = async (req, res, next) => {
   try {
-    const user = await userModel.findByIdAndUpdate(req.params.id);
+    const user = await userService.FindOne({ _id: req.params.id });
 
     if (!user) {
       return res.status(404).json({
@@ -102,8 +103,10 @@ exports.updateUser = async (req, res, next) => {
       });
     }
 
-    await user.updateOne(req.body);
-    const updatedUser = await userModel.findById(req.params.id);
+    const updatedUser = await userService.FindOneAndUpdate(
+      { _id: req.params.id },
+      req.body
+    );
     return res.status(200).json({
       success: true,
       data: updatedUser,
