@@ -11,7 +11,9 @@
     "server": "cross-env DEBUG=app nodemon --exec babel-node app.js",
     "dev": "cross-env NODE_ENV=development npm-run-all server",
     "prod": "npm-run-all clean build",
-    "format": "prettier --write \"./**/*.js\""
+    "format": "prettier --write \"./**/*.js\"",
+    "client": "cd ../ && npm start --prefix groupactivity",
+    "all": "concurrently -n 'server,client' -c 'blue,green' \"yarn run dev\" \"npm run client\""
   },
   "author": "Group 3",
   "license": "MIT",
