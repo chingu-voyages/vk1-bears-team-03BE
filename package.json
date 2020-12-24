@@ -13,7 +13,7 @@
     "prod": "npm-run-all clean build",
     "format": "prettier --write \"./**/*.js\"",
     "client": "cd ../ && npm start --prefix groupactivity",
-    "all": "concurrently -n 'server,client' -c 'blue,green' \"yarn run dev\" \"npm run client\""
+    "all": "concurrently -n 'server,client' -c 'blue,yellow' \"yarn run dev\" \"npm run client\""
   },
   "author": "Group 3",
   "license": "MIT",
