@@ -1,11 +1,11 @@
-const { assetModel } = require("./Asset.model");
+import { AssetModel } from "./Asset.model";
 
 // @desc     Get all assets
 // @route    GET /api/v1/assets
 
 exports.getAssets = async (req, res, next) => {
   try {
-    const assets = await assetModel.find();
+    const assets = await AssetModel.find();
 
     return res.status(200).json({
       success: true,
@@ -34,7 +34,7 @@ exports.addAsset = async (req, res, next) => {
       asset_warrantydate,
     } = req.body;
 
-    const asset = await assetModel.create(req.body);
+    const asset = await AssetModel.create(req.body);
 
     return res.status(201).json({
       success: true,
@@ -62,7 +62,7 @@ exports.addAsset = async (req, res, next) => {
 
 exports.deleteAsset = async (req, res, next) => {
   try {
-    const asset = await assetModel.findById(req.params.id);
+    const asset = await AssetModel.findById(req.params.id);
 
     if (!asset) {
       return res.status(404).json({
@@ -89,7 +89,7 @@ exports.deleteAsset = async (req, res, next) => {
 
 exports.updateAsset = async (req, res, next) => {
   try {
-    const asset = await assetModel.findByIdAndUpdate(req.params.id);
+    const asset = await AssetModel.findByIdAndUpdate(req.params.id);
 
     if (!asset) {
       return res.status(404).json({
@@ -99,7 +99,7 @@ exports.updateAsset = async (req, res, next) => {
     }
 
     await asset.updateOne(req.body);
-    const updatedAsset = await assetModel.findById(req.params.id);
+    const updatedAsset = await AssetModel.findById(req.params.id);
     return res.status(200).json({
       success: true,
       data: updatedAsset,

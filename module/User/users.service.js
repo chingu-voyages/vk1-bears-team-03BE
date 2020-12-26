@@ -1,8 +1,8 @@
-import { userModel } from "./user.model";
+import { UserModel } from "./user.model";
 
 const Create = async (data) => {
   try {
-    const user = await userModel.create(data);
+    const user = await UserModel.create(data);
     return user;
   } catch (error) {
     throw Error(error);
@@ -11,7 +11,7 @@ const Create = async (data) => {
 
 const Find = async (query) => {
   try {
-    const users = await userModel.find(query);
+    const users = await UserModel.find(query);
     return users;
   } catch (error) {
     throw Error(error);
@@ -20,7 +20,7 @@ const Find = async (query) => {
 
 const FindOne = async (query) => {
   try {
-    const user = await userModel.findOne(query);
+    const user = await UserModel.findOne(query);
     return user;
   } catch (error) {
     throw Error(error);
@@ -29,7 +29,7 @@ const FindOne = async (query) => {
 
 const FindOneAndPopulate = async (query, populate_field) => {
   try {
-    const user = await userModel.findOne(query).populate(populate_field);
+    const user = await UserModel.findOne(query).populate(populate_field);
     const organizations = user.organizations;
     return organizations;
   } catch (error) {
@@ -39,7 +39,7 @@ const FindOneAndPopulate = async (query, populate_field) => {
 
 const FindOneAndUpdate = async (filter, data, options = {}) => {
   try {
-    const user = await userModel.findOneAndUpdate(filter, data, {
+    const user = await UserModel.findOneAndUpdate(filter, data, {
       new: true,
       ...options,
     });
@@ -51,7 +51,7 @@ const FindOneAndUpdate = async (filter, data, options = {}) => {
 
 const DeleteOne = async (filter) => {
   try {
-    const deletedUser = await userModel.deleteOne(filter);
+    const deletedUser = await UserModel.deleteOne(filter);
     return deletedUser;
   } catch (error) {
     throw Error(error);
