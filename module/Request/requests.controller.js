@@ -5,7 +5,7 @@ const Request = require('./Request.model');
 
 exports.getRequests = async (req, res, next) => {
     try {
-        const requests = await Request.find().populate('item_name');
+        const requests = await Request.find().populate('item_name').populate('user_name', '-password');
 
         return res.status(200).json({
             success: true,

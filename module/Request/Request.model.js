@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const { assetModel } = require("../Asset/Asset.model");
 
 const RequestSchema = new Schema({
-    user_id: {
+    user_name: {
         type: Schema.Types.ObjectId, 
         ref: 'User',
         required: [true, 'Please specify the owner of this request']
