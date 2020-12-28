@@ -49,7 +49,7 @@ const Create = async (data) => {
     from: "sentokiryuuu@gmail.com",
     to: email,
     subject: "Activate your account",
-    text: `http://localhost:8080/api/v1/auth/activate/${activation}`,
+    text: `http://localhost:${process.env.PORT}/api/v1/auth/activate/${activation}`,
   };
 
   const resp = await wrappedSendMail(mailOptions);
