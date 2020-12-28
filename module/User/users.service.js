@@ -1,13 +1,82 @@
 import { UserModel } from "./user.model";
+import bcrypt from "bcryptjs";
+import crypto from "crypto-random-string";
+import wrappedSendMail from "../../utils/nodeMailerSendMail";
 
 const Create = async (data) => {
-  try {
-    const user = await UserModel.create(data);
-    return user;
-  } catch (error) {
-    throw Error(error);
+  const {
+    // method,
+    // first_name,
+    // last_name,
+    username,
+    password,
+    email,
+    // user_role,
+    // assets_borrowed,
+    // is_active,
+    // activation_key
+  } = data;
+
+  // validate
+  if (await UserModel.findOne({ username: username })) {
+    throw {
+      name: "ValidationError",
+      message: `Username ${username} is already taken.`,
+    };
   }
-};
+
+  if (await UserModel.findOne({ email: email })) {
+    throw {
+      name: "ValidationError",
+      message: `Email ${email} is already taken.`,
+    };
+  }
+
+  // hash password
+  let hashed = null;
+  if (password) {
+    hashed = bcrypt.hashSync(password, 10);
+  }
+
+  // send activation
+  const activation = crypto({
+    length: 16,
+    type: "alphanumeric",
+  });
+
+  // email activation to user
+  const mailOptions = {
+    from: "sentokiryuuu@gmail.com",
+    to: email,
+    subject: "Activate your account",
+    text: `http://localhost:8080/api/v1/auth/activate/${activation}`,
+  };
+
+  const resp = await wrappedSendMail(mailOptions);
+  // log or process resp;
+  if (!resp) {
+    throw {
+      name: "ActivationError",
+      message: `Error sending activation key to ${email}`,
+    };
+  }
+
+  const newUser = await UserModel.create({
+    ...data,
+    // method,
+    // first_name,
+    // last_name,
+    // username,
+    password: hashed,
+    // email,
+    // user_role,
+    // assets_borrowed,
+    // is_active,
+    activation_key: activation,
+  });
+
+  return newUser;
+}; // END of Create
 
 const Find = async (query) => {
   try {

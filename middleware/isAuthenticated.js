@@ -1,4 +1,5 @@
 const { jwtVerify } = require("../utils/helper");
+import httpStatus from "../utils/httpStatus";
 
 const isAuthenticated = async (req, res, next) => {
   const authorization =
@@ -14,12 +15,12 @@ const isAuthenticated = async (req, res, next) => {
       req.decoded = await jwtVerify(token);
       return next();
     } catch (error) {
-      return res.status(400).json({
+      return res.status(httpStatus.BAD_REQUEST).json({
         message: "Invalid Token",
       });
     }
   }
-  return res.status(500).json({
+  return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
     message: "Auth token is not supplied",
   });
 };

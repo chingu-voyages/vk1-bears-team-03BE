@@ -27,16 +27,6 @@ exports.getUsers = async (req, res, next) => {
 
 exports.addUser = async (req, res, next) => {
   try {
-    const {
-      first_name,
-      last_name,
-      username,
-      password,
-      email,
-      user_role,
-      assets_borrowed,
-    } = req.body;
-
     const user = await userService.Create(req.body);
 
     return res.status(httpStatus.CREATED).json({
@@ -44,12 +34,10 @@ exports.addUser = async (req, res, next) => {
       data: user,
     });
   } catch (err) {
-    if (err.name === "ValidationError") {
-      const messages = Object.values(err.errors).map((val) => val.message);
-
+    if (err.name === "ValidationError" || err.name === "ActivationError") {
       return res.status(httpStatus.BAD_REQUEST).json({
         success: false,
-        error: messages,
+        error: err.message,
       });
     } else {
       return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({

@@ -45,11 +45,11 @@ POST http://localhost:5000/api/v1/users HTTP/1.1
 content-type: application/json
 
 {
-    "first_name": "John",
+    "first_name": "John5",
     "last_name": "Doe",
-    "username": "johndoe",
+    "username": "johndoe5",
     "password": "abcd1234",
-    "email": "johndoe@example.com",
+    "email": "johndoe5@example.com",
     "user_role": "user",
     "assets_borrowed": []
 

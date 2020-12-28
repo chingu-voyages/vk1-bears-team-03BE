@@ -4,6 +4,12 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new mongoose.Schema(
   {
+    method: {
+      type: String,
+      enum: ["local", "google", "facebook"],
+      default: "local",
+      required: true,
+    },
     first_name: {
       type: String,
       trim: true,
@@ -17,6 +23,7 @@ const UserSchema = new mongoose.Schema(
     username: {
       type: String,
       trim: true,
+      unique: true,
       required: [true, "Please enter a username"],
     },
     password: {
@@ -27,6 +34,7 @@ const UserSchema = new mongoose.Schema(
     email: {
       type: String,
       trim: true,
+      unique: true,
       required: [true, "Please enter an email address"],
     },
     user_role: {
@@ -41,6 +49,13 @@ const UserSchema = new mongoose.Schema(
         ref: "Asset",
       },
     ],
+    is_active: {
+      type: Boolean,
+      default: false,
+    },
+    activation_key: {
+      type: String,
+    },
   },
   {
     versionKey: false,
