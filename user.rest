@@ -1,0 +1,10 @@
+http://localhost:5000/api/v1/assets
+
+
+###
+PUT http://localhost:5000/api/v1/assets/updateasset/5fe9f3aef08f2c7d7c88abda
+Content-Type: application/json
+
+{
+    "asset_name" : "Windows 10 Pro Max"
+}

@@ -33,6 +33,9 @@ const AssetSchema = new mongoose.Schema({
     trim: true,
     required: [true, "Please specify the warranty date of this asset"],
   },
+  asset_file: {
+    type: Object,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

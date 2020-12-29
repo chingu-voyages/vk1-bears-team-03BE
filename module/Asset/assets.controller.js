@@ -20,6 +20,33 @@ exports.getAssets = async (req, res, next) => {
   }
 };
 
+// @desc     Get asset by ID
+// @route    GET /views/assets/:id
+// @access   Admin
+exports.getAsset = async (req, res, next) => {
+  try {
+      const asset = await AssetModel.findById(req.params.id);
+
+      if(!asset){
+          return res.status(404).json({
+              success: false,
+              error: 'No asset found'
+          });
+      }
+
+      
+      return res.status(200).json({
+          success: true,
+          data: asset
+      });
+
+  } catch (error) {
+      return res.status(500).json({
+          success: false,
+          error: "Server Error"
+      });
+  }
+}
 // @desc     Add asset
 // @route    POST /api/v1/assets
 
@@ -32,6 +59,7 @@ exports.addAsset = async (req, res, next) => {
       asset_serial,
       asset_purchasecost,
       asset_warrantydate,
+      asset_file
     } = req.body;
 
     const asset = await AssetModel.create(req.body);
@@ -89,25 +117,27 @@ exports.deleteAsset = async (req, res, next) => {
 
 exports.updateAsset = async (req, res, next) => {
   try {
-    const asset = await AssetModel.findByIdAndUpdate(req.params.id);
-
-    if (!asset) {
-      return res.status(404).json({
-        success: false,
-        error: "No asset found",
+      const asset = await AssetModel.findById(req.params.id);
+      
+      if(!asset){
+          return res.status(404).json({
+              success: false,
+              error: 'No asset found'
+          });
+      }
+      Object.assign(asset, req.body);
+      await asset.save();
+      return res.status(200).json({
+          success: true,
+          data: asset,
+          message: asset
       });
-    }
 
-    await asset.updateOne(req.body);
-    const updatedAsset = await AssetModel.findById(req.params.id);
-    return res.status(200).json({
-      success: true,
-      data: updatedAsset,
-    });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      error: "Server Error",
-    });
+      console.log("This is from the update error", error)
+      return res.status(500).json({
+          success: false,
+          error: "Server Error"
+      });
   }
-};
+}
