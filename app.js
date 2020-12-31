@@ -5,6 +5,8 @@ const morgan = require("morgan");
 import mainRouter from "./routes";
 import connectMongo from "./config/mongoconnect";
 const cors = require("cors");
+const fileUpload = require('express-fileupload')
+
 
 const app = express();
 
@@ -22,13 +24,33 @@ if (!isProduction) {
 connectMongo();
 
 app.use("/", mainRouter);
-
+app.use(fileUpload())
 const PORT = process.env.PORT || 5000;
 
 app.get("/", (req, res) => {
   res.send("<h1>Welcome to our Asset Management Backend!</h1>");
 });
 
+//Upload Endpoint
+app.post('/upload', (req, res) =>{
+    if(req.files === null){
+        return res.status(400).json({
+            msg: 'No file uploaded'
+        })
+    }
+
+    const file = req.files.file
+    const savePath = __dirname + '/../groupactivity/';
+
+    file.mv(`${savePath}/src/uploads/${file.name}`, err => {
+        if(err){
+            console.error(err)
+            return res.status(500).send(err)
+        }
+
+        res.json({ fileName: file.name, filePath: `/uploads/${file.name}`})
+    })
+})
 app.listen(
   PORT,
   console.log(
