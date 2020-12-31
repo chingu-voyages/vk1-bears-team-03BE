@@ -24,6 +24,8 @@ assetRoutes
 
 assetRoutes
     .route('/asset/:id')
+assetRoutes
+    .route('/viewmore/:id')
     .get(getAsset)
 
 assetRoutes
