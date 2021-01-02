@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { AssetModel } = require("../Asset/Asset.model");
+// const { AssetModel } = require("../Asset/Asset.model");
 
 const RequestSchema = new Schema({
     user_name: {
@@ -10,7 +10,7 @@ const RequestSchema = new Schema({
     },
     item_name: {
         type: Schema.Types.ObjectId, 
-        ref: AssetModel,
+        ref: 'Asset',
         required: [true, 'Please specify the item associated with this request']
     },
     request_type: {
