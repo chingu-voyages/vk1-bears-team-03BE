@@ -2,52 +2,82 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ConsumableSchema = new Schema({
-  permit_name: {
+  consumable_name: {
     type: String,
     trim: true,
-    required: [true, "Please add the name of this permit"],
+    required: [true, "Please add the name of this consumable"],
   },
-  permit_key: {
+  consumable_category: {
     type: String,
     trim: true,
-    required: [true, "Please provide the address of this permit"],
+    required: [true, "Please provide the address of this consumable"],
   },
-  permit_status: {
+  consumable_status: {
     type: String,
     trim: true,
-    required: [true, "Please provide the phone number of this permit"],
+    required: [true, "Please provide the phone number of this consumable"],
   },
-  permit_description: {
+  consumable_description: {
     type: String,
     trim: true,
-    required: [true, "Please provide the country of this permit"],
+    required: [true, "Please provide the country of this consumable"],
   },
-  permit_registration: {
+  consumable_serial: {
     type: String,
     trim: true,
-    required: [true, "Please provide the zipcode of this permit"],
+    required: [true, "Please provide the zipcode of this consumable"],
   },
-  permit_supplier: {
+  consumable_manufacturer: {
     type: String,
     trim: true,
-    required: [true, "Please provide the zipcode of this permit"],
+    required: [true, "Please provide the zipcode of this consumable"],
   },
-  permit_invoicenum: {
+  consumable_purchasedate: {
     type: String,
     trim: true,
-    required: [true, "Please provide the zipcode of this permit"],
+    required: [true, "Please provide the zipcode of this consumable"],
   },
-  permit_purchasecost: {
+  consumable_qty: {
     type: String,
     trim: true,
-    required: [true, "Please provide the zipcode of this permit"],
+    required: [true, "Please provide the zipcode of this consumable"],
   },
-  permit_notes: {
+  consumable_remaining: {
     type: String,
     trim: true,
-    required: [true, "Please provide the zipcode of this permit"],
+    required: [true, "Please provide the zipcode of this consumable"],
+  },
+  consumable_supplier: {
+    type: String,
+    trim: true,
+    required: [true, "Please provide the zipcode of this consumable"],
+  },
+  consumable_invoicenum: {
+    type: String,
+    trim: true,
+    required: [true, "Please provide the zipcode of this consumable"],
+  },
+  consumable_purchasecost: {
+    type: String,
+    trim: true,
+    required: [true, "Please provide the zipcode of this consumable"],
+  },
+  consumable_warranty: {
+    type: String,
+    trim: true,
+    required: [true, "Please provide the zipcode of this consumable"],
+  },
+  consumable_location: {
+    type: String,
+    trim: true,
+    required: [true, "Please provide the zipcode of this consumable"],
+  },
+  consumable_notes: {
+    type: String,
+    trim: true,
+    required: [true, "Please provide the zipcode of this consumable"],
   },
 });
 
-const ConsumableModel = mongoose.model("permit", ConsumableSchema);
+const ConsumableModel = mongoose.model("consumable", ConsumableSchema);
 export { ConsumableModel };

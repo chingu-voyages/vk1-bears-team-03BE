@@ -5,12 +5,12 @@ const { ConsumableModel } = require("./consumable.model");
 
 exports.getConsumables = async (req, res, next) => { 
   try {
-    const departments = await DepartmentModel.find();
+    const consumables = await ConsumableModel.find();
 
     return res.status(200).json({
       success: true,
-      count: departments.length,
-      data: departments,
+      count: consumables.length,
+      data: consumables,
     });
   } catch (err) {
     return res.status(500).json({
@@ -23,19 +23,30 @@ exports.getConsumables = async (req, res, next) => {
 // @desc     Add asset
 // @route    POST /api/v1/assets
 
-exports.addDepartment = async (req, res, next) => {
+exports.addConsumable = async (req, res, next) => {
   try {
     const {
-      department_name,
-      department_location,
-      department_notes,
+      consumable_name,
+      consumable_category,
+      consumable_status,
+      consumable_description,
+      consumable_serial,
+      consumable_manufacturer,
+      consumable_purchasedate,
+      consumable_qty,
+      consumable_supplier,
+      consumable_invoicenum,
+      consumable_purchasecost,
+      consumable_warranty,
+      consumable_location,
+      consumable_notes,
     } = req.body;
 
-    const department = await DepartmentModel.create(req.body);
+    const consumable = await ConsumableModel.create(req.body);
 
     return res.status(201).json({
       success: true,
-      data: department,
+      data: consumable,
     });
   } catch (err) {
     if (err.name === "ValidationError") {
@@ -57,9 +68,9 @@ exports.addDepartment = async (req, res, next) => {
 // @desc     Delete asset
 // @route    GET /api/v1/assets/:id
 
-exports.deleteDepartment = async (req, res, next) => {
+exports.deleteConsumable = async (req, res, next) => {
   try {
-    const department = await DepartmentModel.findById(req.params.id);
+    const consumable = await ConsumableModel.findById(req.params.id);
 
     if (!department) {
       return res.status(404).json({
@@ -68,7 +79,7 @@ exports.deleteDepartment = async (req, res, next) => {
       });
     }
 
-    await department.remove();
+    await consumable.remove();
     return res.status(200).json({
       success: true,
       data: {},
@@ -84,11 +95,11 @@ exports.deleteDepartment = async (req, res, next) => {
 // @desc     Update asset
 // @route    GET /api/v1/asset/:id
 
-exports.updateDepartment = async (req, res, next) => {
+exports.updateConsumable = async (req, res, next) => {
   try {
-    const department = await departmentModel.findByIdAndUpdate(req.params.id);
+    const consumable = await ConsumableModel.findByIdAndUpdate(req.params.id);
 
-    if (!department) {
+    if (!consumable) {
       
       return res.status(404).json({
         success: false,
@@ -96,11 +107,11 @@ exports.updateDepartment = async (req, res, next) => {
       });
     }
 
-    await department.updateOne(req.body);
-    const updatedDepartment = await departmentModel.findById(req.params.id);
+    await consumable.updateOne(req.body);
+    const updatedConsumable = await ConsumableModel.findById(req.params.id);
     return res.status(200).json({
       success: true,
-      data: updatedDepartment,
+      data: updatedConsumable,
     });
   } catch (error) {
     return res.status(500).json({
