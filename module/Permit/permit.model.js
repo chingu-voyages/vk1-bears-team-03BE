@@ -47,6 +47,21 @@ const PermitSchema = new Schema({
     trim: true,
     required: [true, "Please provide the zipcode of this permit"],
   },
+  permit_expirationdate: {
+    type: String,
+    trim: true,
+    required: [true, "Please provide the zipcode of this permit"],
+  },
+  permit_expirationdate: {
+    type: String,
+    trim: true,
+    required: [true, "Please provide the zipcode of this permit"],
+  },
+  permit_category: {
+    type: String,
+    trim: true,
+    required: [true, "Please provide the zipcode of this permit"],
+  },
 });
 
 const PermitModel = mongoose.model("permit", PermitSchema);

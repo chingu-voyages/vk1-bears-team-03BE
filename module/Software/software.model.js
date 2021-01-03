@@ -57,7 +57,11 @@ const SoftwareSchema = new mongoose.Schema({
     trim: true,
     required: [true, "Please provide the notes of this Department"],
   },
-
+  software_available: {
+    type: String,
+    trim: true,
+    required: [true, "Please provide the notes of this Department"],
+  },
 
 });
 
