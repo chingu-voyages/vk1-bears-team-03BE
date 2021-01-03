@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-// const { AssetModel } = require("../Asset/Asset.model");
+const { RequestModel } = require("../Request/Request.model");
 
 const RequestSchema = new Schema({
     user_name: {
@@ -38,3 +38,4 @@ const RequestSchema = new Schema({
 );
 
 module.exports = mongoose.model('Request', RequestSchema);
+export { RequestModel };
