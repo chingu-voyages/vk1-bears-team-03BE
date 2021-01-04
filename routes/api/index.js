@@ -6,10 +6,6 @@ import { LocationRoutes } from "../../module/Location/location.route";
 import { DepartmentRoutes } from "../../module/Department/departments.route";
 import { SupplierRoutes } from "../../module/Supplier/supplier.route";
 import { CategoryRoutes } from "../../module/Category/category.route";
-import { ConsumableRoutes } from "../../module/Consumable/consumable.route";
-import { ComponentRoutes } from "../../module/Component/component.route";
-import { SoftwareRoutes } from "../../module/Software/software.route";
-import { PermitRoutes } from "../../module/Permit/permit.route";
 
 const apiRoutes = express.Router();
 
@@ -26,10 +22,6 @@ apiRoutes.use("/locations", LocationRoutes);
 apiRoutes.use("/departments", DepartmentRoutes);
 apiRoutes.use("/suppliers", SupplierRoutes);
 apiRoutes.use("/categories", CategoryRoutes);
-apiRoutes.use("/consumable", ConsumableRoutes);
-apiRoutes.use("/component", ComponentRoutes);
-apiRoutes.use("/software", SoftwareRoutes);
-apiRoutes.use("/permit", PermitRoutes);
 
 
 
