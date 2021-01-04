@@ -67,6 +67,12 @@ const AccessorySchema = new mongoose.Schema({
     trim: true,
     required: [true, "Please provide the notes of this Department"],
   },
+  accessory_available: {
+    type: String,
+    trim: true,
+    required: [true, "Please provide the notes of this Department"],
+  },
+
 
 });
 

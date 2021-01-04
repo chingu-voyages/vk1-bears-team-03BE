@@ -2,11 +2,7 @@ const devConfig = {
   //database
   jwt_key: "muddynight96",
   jwt_expiration: 360000,
-<<<<<<< HEAD
-dbConnectionString: 'mongodb+srv://admin:kodigochinguph@assetmanagement.km9vk.mongodb.net/assetmanagement?retryWrites=true&w=majority',
-=======
   dbConnectionString: `mongodb+srv://admin:kodigochinguph@assetmanagement.km9vk.mongodb.net/assetmanagement?retryWrites=true&w=majority`,
->>>>>>> 53b71808404d5f9e21f19c7d8a291ad84e56ab4b
   mongoDebug: true,
   //nodemailer
   gmail_password: "zcxzgmskngzjcpog",
