@@ -1,4 +1,4 @@
-const { jwtVerify } = require("../utils/helper");
+const { jwtVerify } = require("./helper");
 import httpStatus from "../utils/httpStatus";
 
 const isAuthenticated = async (req, res, next) => {

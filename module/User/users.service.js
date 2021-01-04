@@ -1,4 +1,4 @@
-import { UserModel } from "./user.model";
+import { UserModel } from "./User.model";
 import bcrypt from "bcryptjs";
 import crypto from "crypto-random-string";
 import wrappedSendMail from "../../utils/nodeMailerSendMail";
@@ -49,7 +49,7 @@ const Create = async (data) => {
     from: "sentokiryuuu@gmail.com",
     to: email,
     subject: "Activate your account",
-    text: `http://localhost:${process.env.PORT}/api/v1/auth/activate/${activation}`,
+    text: `http://localhost:${process.env.PORT}/api/v1/users/activate/${activation}`,
   };
 
   const resp = await wrappedSendMail(mailOptions);

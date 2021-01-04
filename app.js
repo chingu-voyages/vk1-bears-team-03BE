@@ -5,7 +5,8 @@ const morgan = require("morgan");
 import mainRouter from "./routes";
 import connectMongo from "./config/mongoconnect";
 const cors = require("cors");
-const fileUpload = require('express-fileupload')
+const fileUpload = require('express-fileupload');
+const passport = require('passport');
 
 
 const app = express();
@@ -23,8 +24,13 @@ if (!isProduction) {
 //Connect Mongo
 connectMongo();
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use("/", mainRouter);
-app.use(fileUpload())
+
+
+app.use(fileUpload());
 const PORT = process.env.PORT || 5000;
 
 app.get("/", (req, res) => {
