@@ -10,7 +10,7 @@ const RequestSchema = new Schema({
     },
     item_name: {
         type: Schema.Types.ObjectId, 
-        ref: AssetModel,
+        ref: 'Asset',
         required: [true, 'Please specify the item associated with this request']
     },
     request_type: {

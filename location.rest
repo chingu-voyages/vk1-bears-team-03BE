@@ -1,0 +1,15 @@
+http://localhost:5000/api/v1/locations
+
+###
+POST http://localhost:5000/api/v1/locations/addlocation
+Content-Type: application/json
+
+{
+     "location_name": "Manila",
+    "location_phonenumber" : "12345687978",
+    "location_address" : "Manila 6000 PH",
+    "location_country": "PH",
+    "location_zipcode": "1400"
+}
+
+      

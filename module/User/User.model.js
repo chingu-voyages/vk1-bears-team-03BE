@@ -29,8 +29,19 @@ const UserSchema = new mongoose.Schema(
     password: {
       type: String,
       trim: true,
-      required: [true, "Please enter a password"],
+      // required: [true, "Please enter a password"],
+			select: false
     },
+    google: {
+			id: {
+				type: String
+			}, 
+		},
+		facebook: {
+			id: {
+				type: String
+			}, 
+		},
     email: {
       type: String,
       trim: true,

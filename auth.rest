@@ -41,19 +41,36 @@ GET http://localhost:5000/api/v1/users
 
 ###
 //Add User
-POST http://localhost:5000/api/v1/users HTTP/1.1
+POST http://localhost:5000/api/v1/users/register HTTP/1.1
 content-type: application/json
 
 {
-    "first_name": "John5",
+    "first_name": "John12",
     "last_name": "Doe",
-    "username": "johndoe5",
+    "username": "johndoe12",
     "password": "abcd1234",
-    "email": "johndoe5@example.com",
+    "email": "johndoe12@example.com",
     "user_role": "user",
     "assets_borrowed": []
 
 }
+
+###
+
+//try johndoe10@example.com not register, johndoe12@example.com not activated
+POST http://localhost:5000/api/v1/users/login
+Content-Type: application/json
+
+{
+    "email": "johndoe11@example.com",
+    "password": "abcd1234"
+}
+
+###
+
+// logout works only if token in the bearer
+POST http://localhost:5000/api/v1/users/logout
+
 
 ###
 //Delete User

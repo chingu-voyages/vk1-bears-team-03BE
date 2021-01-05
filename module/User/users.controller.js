@@ -1,5 +1,8 @@
 import * as userService from "./users.service";
 import httpStatus from "../../utils/httpStatus";
+const jwt = require("jsonwebtoken");
+import * as TokenService from "../Token/token.service";
+import appConfig from "../../config/env";
 
 // @desc     Get all users
 // @route    GET /api/v1/users
@@ -25,7 +28,7 @@ exports.getUsers = async (req, res, next) => {
 // @route    POST /api/v1/users
 // @access   Public
 
-exports.addUser = async (req, res, next) => {
+exports.registerUser = async (req, res, next) => {
   try {
     const user = await userService.Create(req.body);
 
@@ -103,6 +106,89 @@ exports.updateUser = async (req, res, next) => {
     return res.status(500).json({
       success: false,
       error: "Server Error",
+    });
+  }
+};
+
+// @desc     login user
+// @route    GET /api/v1/users/login
+// @access   Public
+
+exports.loginUser = async (req, res, next) => {
+  try {
+    const user = req.user;
+
+		const access_token = jwt.sign(user.toJSON(), appConfig.SECRET_TOKEN, {
+			expiresIn: appConfig.SECRET_TOKEN_EXPIRED_IN,
+		});
+		
+    await TokenService.Create({ access_token });
+
+		return res.status(httpStatus.OK).json({ message: 'Ok', access_token, user });
+	} catch (error) {
+		return next(new Error(error.message));
+	}
+};
+
+// @desc     logout user
+// @route    GET /api/v1/users/logout
+// @access   Public
+
+exports.logoutUser = async (req, res, next) => {
+	try {
+		const authorization =
+			req.headers['x-access-token'] || req.headers.authorization;
+		const token =
+			authorization &&
+			authorization.startsWith('Bearer') &&
+			authorization.slice(7, authorization.length);
+
+		await Promise.all([TokenService.DeleteOne({ access_token: token })]);
+
+		return res.status(httpStatus.OK).json({ message: 'Ok' });
+	} catch (error) {
+		return next(new Error(error.message));
+	}
+};
+
+// @desc     Activate user
+// @route    POST /api/v1/activate/:activation
+// @access   Public
+
+exports.activateUser = async (req, res, next) => {
+  try {
+    const activation = req.params.activation;
+
+    const updatedUser = await userService.FindOneAndUpdate(
+      { activation_key: activation },
+      {
+        $set: { is_active: true }
+      },
+      (err, doc) => {
+        if (err) {
+          return res.status(httpStatus.BAD_REQUEST).json({
+            message: "Activation error",
+          });
+        }
+
+        if (!doc) {
+          return res.status(httpStatus.BAD_REQUEST).json({
+            message: "Activation key not found",
+          });
+        }
+
+        return res.status(httpStatus.OK).json({
+          message: "Activation successful",
+        });
+      }
+    );
+    return res.status(httpStatus.OK).json({
+      success: true,
+      data: updatedUser,
+    });
+  } catch (err) {
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+      error: err,
     });
   }
 };
