@@ -13,18 +13,18 @@ const UserSchema = new mongoose.Schema(
     first_name: {
       type: String,
       trim: true,
-      // required: [true, "Please enter a first name"],
+      required: [true, "Please enter a first name"],
     },
     last_name: {
       type: String,
       trim: true,
-      // required: [true, "Please a last name"],
+      required: [true, "Please a last name"],
     },
     username: {
       type: String,
       trim: true,
       unique: true,
-      // required: [true, "Please enter a username"],
+      required: [true, "Please enter a username"],
     },
     password: {
       type: String,
@@ -46,7 +46,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       trim: true,
       unique: true,
-      // required: [true, "Please enter an email address"],
+      required: [true, "Please enter an email address"],
     },
     user_role: {
       type: String,

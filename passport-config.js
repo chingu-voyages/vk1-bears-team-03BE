@@ -25,6 +25,7 @@ passport.use(
 			//replace cb with done
 			try {
 				//check whether this current user exist in the db
+				// console.log('profile: ', profile);
 				const existingUser = await UserModel.findOne({ 'google.id': profile.id });
 				if (existingUser) {
 					// console.log('User already exists in our DB');
@@ -32,7 +33,7 @@ passport.use(
 						existingUser.toJSON(),
 						appConfig.SECRET_TOKEN,
 						{
-							expiresIn: '24h',
+							expiresIn: appConfig.SECRET_TOKEN_EXPIRED_IN,
 						}
 					);
 					// console.log('access token existing user: ', access_token);
@@ -45,6 +46,10 @@ passport.use(
 						google: {
 							id: profile.id,
 						},
+						username: profile.emails[0].value,
+						first_name: profile.name.givenName,
+						last_name: profile.name.familyName,
+						is_active: true
 					});
 					await newUser.save();
 					const access_token = jwt.sign(
@@ -85,7 +90,7 @@ passport.use(
 						existingUser.toJSON(),
 						appConfig.SECRET_TOKEN,
 						{
-							expiresIn: '24h',
+							expiresIn: appConfig.SECRET_TOKEN_EXPIRED_IN,
 						}
 					);
 					// console.log('access token existing user: ', access_token);
@@ -95,16 +100,20 @@ passport.use(
 					const newUser = new UserModel({
 						method: 'facebook',
 						email: profile.emails[0].value,
-						google: {
+						facebook: {
 							id: profile.id,
 						},
+						username: profile.emails[0].value,
+						first_name: profile.name.givenName,
+						last_name: profile.name.familyName,
+						is_active: true
 					});
 					await newUser.save();
 					const access_token = jwt.sign(
 						newUser.toJSON(),
 						appConfig.SECRET_TOKEN,
 						{
-							expiresIn: '24h',
+							expiresIn: appConfig.SECRET_TOKEN_EXPIRED_IN,
 						}
 					);
 					// console.log('access token new user: ', access_token);
@@ -126,15 +135,19 @@ passport.use(
 			try {
 				//Find the user given the email
 				const user = await UserModel.findOne({ email }).select("+password");
+
 				//If no user found, handle it
 				if (!user) {
 					return done(null, {success: false, message: "Email not registered"});
-				} 
+				}
+				//If user email is for other login method
+				if (user && !user.password && user.method) {
+					return done(null, {success: false, message: `Email is for ${user.method} method`})
+				}				
 				//If user is not yet activated
 				if(user && !user.is_active) {
 					return done(null, {success: false, message: "User not activated"});
 				}
-
 				//Check if the password is correct
 				const valid =
 					user.password && (await bcrypt.compare(password, user.password));
@@ -142,6 +155,7 @@ passport.use(
 				if (!valid) {
 					return done(null, {success: false, message: "Password incorrect"});
 				}
+
 				//Otherwise, return the user
 				done(null, user);
 			} catch (error) {
