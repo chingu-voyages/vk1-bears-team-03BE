@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 // const { AssetModel } = require("../Asset/Asset.model");
 
-const RequestSchema = new Schema({
+const BorrowSchema = new Schema({
     user_name: {
         type: Schema.Types.ObjectId, 
         ref: 'User',
@@ -17,7 +17,7 @@ const RequestSchema = new Schema({
         type: String,
         trim: true,
         enum: ['Borrow', 'Return'],
-        default: "Available",
+        default: "Borrow",
         required: true
     },
     request_date: {
@@ -37,4 +37,4 @@ const RequestSchema = new Schema({
 }
 );
 
-module.exports = mongoose.model('Request', RequestSchema);
+module.exports = mongoose.model('Borrow', BorrowSchema);
