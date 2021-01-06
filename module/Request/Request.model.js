@@ -27,7 +27,7 @@ const RequestSchema = new Schema({
     request_status: {
         type: String,
         trim: true,
-        enum: ['Pending', 'Approved', 'Denied', 'Archived'],
+        enum: ['Pending', 'Approved', 'Denied', 'Archived', 'Returned'],
         default: "Pending"
     },  
 },
