@@ -17,8 +17,7 @@ const RequestSchema = new Schema({
         type: String,
         trim: true,
         enum: ['Borrow', 'Return'],
-        default: "Available",
-        required: true
+        default: "Available"
     },
     request_date: {
         type: Date,
