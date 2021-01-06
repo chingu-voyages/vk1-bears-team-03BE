@@ -1,4 +1,4 @@
-http://localhost:5000/api/v1/locations
+http://localhost:5000/api/v1/requests
 
 ###
 POST http://localhost:5000/api/v1/locations/addlocation
