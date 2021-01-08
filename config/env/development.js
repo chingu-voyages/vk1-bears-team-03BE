@@ -5,10 +5,10 @@ const devConfig = {
   dbConnectionString: 'mongodb+srv://admin:kodigochinguph@assetmanagement.km9vk.mongodb.net/assetmanagement?retryWrites=true&w=majority',
   mongoDebug: true,
   //nodemailer
-  gmail_password: "zcxzgmskngzjcpog",
+  gmail_password: "nsgzvhgytirlpxcd",
   //oauth
   SECRET_TOKEN: "b3assetmanagement",
-  SECRET_TOKEN_EXPIRED_IN: "24h",
+  SECRET_TOKEN_EXPIRED_IN: 86400,
   REFRESH_SECRET_TOKEN: "b3assetmanagementsecretrefreshtokenkey",
   REFRESH_SECRET_TOKEN_EXPIRED_IN: "30d",
   GOOGLE_OAUTH_CLIENT_ID:

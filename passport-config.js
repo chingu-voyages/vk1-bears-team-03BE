@@ -157,6 +157,8 @@ passport.use(
 				}
 
 				//Otherwise, return the user
+
+				console.log("This is from the passport config", user)
 				done(null, user);
 			} catch (error) {
 				done(error, false);

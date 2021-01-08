@@ -46,7 +46,7 @@ const Create = async (data) => {
 
   // email activation to user
   const mailOptions = {
-    from: "sentokiryuuu@gmail.com",
+    from: "judezgabi25@gmail.com",
     to: email,
     subject: "Activate your account",
     text: `http://localhost:${process.env.PORT}/api/v1/users/activate/${activation}`,
@@ -78,7 +78,7 @@ const Create = async (data) => {
   return newUser;
 }; // END of Create
 
-const Find = async (query) => {
+const Find = async (query) => {  
   try {
     const users = await UserModel.find(query);
     return users;

@@ -2,7 +2,7 @@
 
 //Get Assets
 GET http://localhost:5000/api/v1/assets
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyZ2FiaXNheUBnbWFpbC5jb20iLCJ1c2VySWQiOiI1ZmY3ZjRiNzZkMTFhZjQyYTA2YWYyZWQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MTAxMTgzNDksImV4cCI6MTYxMDIwNDc0OX0.N6pGTwTlUnhaDy9i_b_CfaRDGIOns_P_q_vuMakulZI
 ###
 //Add Asset
 POST http://localhost:5000/api/v1/assets HTTP/1.1
@@ -62,8 +62,7 @@ POST http://localhost:5000/api/v1/users/login
 Content-Type: application/json
 
 {
-    "email": "johndoe11@example.com",
-    "password": "abcd1234"
+    "email": "johndoe@example.com"
 }
 
 ###

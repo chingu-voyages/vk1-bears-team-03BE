@@ -4,12 +4,12 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new mongoose.Schema(
   {
-    method: {
-      type: String,
-      enum: ["local", "google", "facebook"],
-      default: "local",
-      required: true,
-    },
+    // method: {
+    //   type: String,
+    //   enum: ["local", "google", "facebook"],
+    //   default: "local",
+    //   required: true,
+    // },
     first_name: {
       type: String,
       trim: true,
@@ -32,16 +32,16 @@ const UserSchema = new mongoose.Schema(
       // required: [true, "Please enter a password"],
 			select: false
     },
-    google: {
-			id: {
-				type: String
-			}, 
-		},
-		facebook: {
-			id: {
-				type: String
-			}, 
-		},
+    // google: {
+		// 	id: {
+		// 		type: String
+		// 	}, 
+		// },
+		// facebook: {
+		// 	id: {
+		// 		type: String
+		// 	}, 
+		// },
     email: {
       type: String,
       trim: true,

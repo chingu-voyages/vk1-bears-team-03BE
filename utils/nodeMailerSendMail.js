@@ -6,7 +6,7 @@ const wrappedSendMail = async (mailOptions) => {
     let transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "sentokiryuuu@gmail.com",
+        user: "judezgabi25@gmail.com",
         pass: appConfig.gmail_password, // naturally, replace both with your real credentials or an application-specific password
       },
       tls: {

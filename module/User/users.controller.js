@@ -8,6 +8,7 @@ import appConfig from "../../config/env";
 // @route    GET /api/v1/users
 // @access   Public
 exports.getUsers = async (req, res, next) => {
+
   try {
     const users = await userService.Find({});
 
@@ -26,7 +27,7 @@ exports.getUsers = async (req, res, next) => {
 
 // @desc     Add user
 // @route    POST /api/v1/users
-// @access   Public
+// @access   Public   
 
 exports.registerUser = async (req, res, next) => {
   try {
@@ -117,13 +118,18 @@ exports.updateUser = async (req, res, next) => {
 exports.loginUser = async (req, res, next) => {
   try {
     const user = req.user;
-
-		const access_token = jwt.sign(user.toJSON(), appConfig.SECRET_TOKEN, {
+    console.log(user)
+		const access_token = jwt.sign(
+      {
+        email: user.email,
+        userId: user.id,
+        role: user.user_role,
+    }, appConfig.SECRET_TOKEN, {
 			expiresIn: appConfig.SECRET_TOKEN_EXPIRED_IN,
 		});
-		
+		console.log("This is from access token", access_token)
     await TokenService.Create({ access_token });
-
+    // console.log(user)
 		return res.status(httpStatus.OK).json({ message: 'Ok', access_token, user });
 	} catch (error) {
 		return next(new Error(error.message));

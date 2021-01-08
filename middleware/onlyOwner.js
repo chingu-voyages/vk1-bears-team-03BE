@@ -4,7 +4,7 @@ function onlyOwner(req, res, next) {
   if (req.user.role == "admin") {
     next();
   } else if (
-    req.user.role == "member" &&
+    req.user.role == "user" &&
     req.params.userId == req.user.userId
   ) {
     next();

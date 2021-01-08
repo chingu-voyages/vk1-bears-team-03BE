@@ -1,5 +1,5 @@
 import { AssetModel } from "./Asset.model";
-
+import httpStatus from "../../utils/httpStatus";
 // @desc     Get all assets
 // @route    GET /api/v1/assets
 
@@ -7,7 +7,7 @@ exports.getAssets = async (req, res, next) => {
   try {
     const assets = await AssetModel.find();
 
-    return res.status(200).json({
+    return res.status(httpStatus.OK).json({
       success: true,
       count: assets.length,
       data: assets,

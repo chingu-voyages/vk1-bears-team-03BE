@@ -1,5 +1,7 @@
 const express = require("express");
 const userRoutes = express.Router();
+import isAuthenticated from "../../middleware/isAuthenticated";
+import httpStatus from "../../utils/httpStatus";
 import {
   asyncWrapper
 } from "../../utils/asyncWrapper";
@@ -12,8 +14,7 @@ const {
   logoutUser,
   activateUser
 } = require("./users.controller");
-import httpStatus from "../../utils/httpStatus";
-const { isAuthenticated } = require('../../middleware/isAuthenticated');
+
 const passport = require('passport');
 require('../../passport-config'); //not putting in a variable so that we can quicky use it
 // const passportLogin = passport.authenticate('local', { session: false });
@@ -34,13 +35,18 @@ const passportLogin = (req, res, next) => {
   })(req, res, next);
 };
 
-userRoutes.route("/").get(getUsers);
+
+userRoutes.get("/", [ isAuthenticated ], asyncWrapper(getUsers));
+userRoutes.delete("/:id", [ isAuthenticated ], asyncWrapper(deleteUser))
+userRoutes.patch("/:id", [ isAuthenticated ], asyncWrapper(updateUser))
+
+
 userRoutes.route("/register").post(registerUser);
 userRoutes.post('/login', passportLogin, loginUser);
 userRoutes.post('/logout', logoutUser);
 userRoutes.get("/activate/:activation", activateUser);
 
-userRoutes.route("/:id").delete(deleteUser).patch(updateUser);
+// userRoutes.route("/:id").delete(deleteUser).patch(updateUser);
 
 //GOOGLE AUTH
 userRoutes.get(
