@@ -1,7 +1,7 @@
-http://localhost:5000/api/v1/requests
+https://asset-spartan-api.herokuapp.com/api/v1/requests
 
 ###
-POST http://localhost:5000/api/v1/locations/addlocation
+POST https://asset-spartan-api.herokuapp.com/api/v1/locations/addlocation
 Content-Type: application/json
 
 {
